@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imran Umar — CV</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    /* ── Print button ── */
+    .print-bar {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary { background: #0891b2; color: #fff; }
+    .btn-primary:hover { background: #0e7490; }
+    .btn-secondary { background: #fff; color: #374151; border: 1px solid #d1d5db; }
+    .btn-secondary:hover { background: #f9fafb; }
+
+    /* ── CV Card ── */
+    .cv {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+    }
+
+    /* ── Header ── */
+    .cv-header {
+      background: linear-gradient(135deg, #0a2540 0%, #0e3a6e 60%, #1a5276 100%);
+      padding: 48px 56px 40px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cv-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: rgba(6,182,212,0.08);
+      border-radius: 50%;
+    }
+    .cv-header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 40%;
+      width: 140px; height: 140px;
+      background: rgba(6,182,212,0.05);
+      border-radius: 50%;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .avatar-wrap img {
+      width: 110px;
+      height: 110px;
+      border-radius: 16px;
+      object-fit: cover;
+      object-position: top;
+      border: 3px solid rgba(6,182,212,0.5);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .avatar-wrap .dot {
+      position: absolute;
+      bottom: -4px; right: -4px;
+      width: 18px; height: 18px;
+      background: #22c55e;
+      border: 3px solid #0a2540;
+      border-radius: 50%;
+    }
+
+    .header-text { z-index: 1; }
+    .header-text h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .header-text h1 span { color: #06b6d4; }
+    .header-text .role {
+      font-size: 15px;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+    .contact-item i { color: #06b6d4; font-size: 11px; }
+    .contact-item:hover { color: #06b6d4; }
+
+    /* ── Body ── */
+    .cv-body {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      min-height: 500px;
+    }
+
+    /* ── Main column ── */
+    .cv-main { padding: 40px 48px 48px; border-right: 1px solid #e5e7eb; }
+
+    /* ── Sidebar ── */
+    .cv-side { padding: 40px 32px 48px; background: #f8fafc; }
+
+    /* ── Section titles ── */
+    .sec-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0891b2;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e0f2fe;
+    }
+    .sec-title i { font-size: 12px; }
+
+    .section { margin-bottom: 32px; }
+
+    /* ── Summary ── */
+    .summary-text {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: #374151;
+    }
+
+    /* ── Experience / Education blocks ── */
+    .block { margin-bottom: 22px; }
+    .block:last-child { margin-bottom: 0; }
+
+    .block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+    .block-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .block-date {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0891b2;
+      background: #e0f2fe;
+      padding: 2px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .block-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #0891b2;
+      margin-bottom: 8px;
+    }
+    .block-org {
+      font-size: 12.5px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .block-bullets {
+      list-style: none;
+      padding: 0;
+    }
+    .block-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: #374151;
+      margin-bottom: 5px;
+      line-height: 1.6;
+    }
+    .block-bullets li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: #06b6d4;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    /* ── Project card ── */
+    .project-card {
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      border: 1px solid #bae6fd;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+    }
+    .project-card:last-child { margin-bottom: 0; }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .project-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0c4a6e;
+      max-width: 78%;
+      line-height: 1.4;
+    }
+    .project-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      padding: 2px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .project-status span {
+      width: 5px; height: 5px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+    .project-desc {
+      font-size: 12.5px;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: #0e7490;
+      background: #fff;
+      border: 1px solid #bae6fd;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Sidebar skills ── */
+    .skill-group { margin-bottom: 20px; }
+    .skill-group-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .skill-item {
+      margin-bottom: 10px;
+    }
+    .skill-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #4b5563;
+      margin-bottom: 4px;
+    }
+    .skill-bar {
+      height: 5px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #06b6d4, #0ea5e9);
+      border-radius: 4px;
+    }
+
+    /* tag pills in sidebar */
+    .pill-group { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .pill {
+      font-size: 11px;
+      font-weight: 500;
+      color: #0e7490;
+      background: #e0f2fe;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* cert list */
+    .cert-list { list-style: none; padding: 0; }
+    .cert-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #374151;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .cert-list li i {
+      color: #0891b2;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* strength pills */
+    .strength-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .strength-pill {
+      font-size: 11px;
+      font-weight: 600;
+      background: #fff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* education side block */
+    .edu-block {
+      background: linear-gradient(135deg, #0a2540, #0e3a6e);
+      border-radius: 14px;
+      padding: 18px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .edu-block .edu-degree {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .edu-block .edu-school {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+    .edu-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .edu-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(6,182,212,0.15);
+      color: #06b6d4;
+      border: 1px solid rgba(6,182,212,0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .print-bar { display: none; }
+      .cv { box-shadow: none; border-radius: 0; max-width: 100%; }
+      .cv-header { padding: 32px 40px 28px; }
+      .cv-main { padding: 28px 40px 32px; }
+      .cv-side { padding: 28px 24px 32px; }
+      .section { margin-bottom: 22px; }
+      @page { margin: 0.4in; size: A4; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .cv-body { grid-template-columns: 1fr; }
+      .cv-main { border-right: none; border-bottom: 1px solid #e5e7eb; padding: 28px 24px; }
+      .cv-side { padding: 28px 24px; }
+      .cv-header { flex-direction: column; align-items: flex-start; padding: 32px 24px; gap: 20px; }
+      .header-text h1 { font-size: 26px; }
+      .contact-row { gap: 12px; }
+      .block-header { flex-direction: column; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Print / Download bar -->
+  <div class="print-bar">
+    <a href="../index.html" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
+    <button class="btn btn-primary" onclick="window.print()">
+      <i class="fas fa-download"></i> Download / Print PDF
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CV CARD
+  ══════════════════════════════════ -->
+  <div class="cv">
+
+    <!-- Header -->
+    <div class="cv-header">
+      <div class="avatar-wrap">
+        <img src="assets/images/avatar.jpg" alt="Imran Umar" />
+        <div class="dot"></div>
+      </div>
+      <div class="header-text">
+        <h1>Imran <span>Umar</span></h1>
+        <p class="role">Final-Year Computer Science Student &nbsp;·&nbsp; Keffi, Nigeria</p>
+        <div class="contact-row">
+          <a href="mailto:umarimran274@gmail.com" class="contact-item">
+            <i class="fas fa-envelope"></i> umarimran274@gmail.com
+          </a>
+          <a href="tel:+2349033854686" class="contact-item">
+            <i class="fas fa-phone"></i> +234 903 385 4686
+          </a>
+          <a href="https://www.linkedin.com/in/imran-umar-98405b30a" target="_blank" class="contact-item">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://github.com/Immraf" target="_blank" class="contact-item">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <span class="contact-item">
+            <i class="fas fa-map-marker-alt"></i> Keffi, Nasarawa State, Nigeria
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="cv-body">
+
+      <!-- ── MAIN COLUMN ── -->
+      <div class="cv-main">
+
+        <!-- Summary -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-user"></i> Professional Summary</div>
+          <p class="summary-text">
+            Final-year Computer Science undergraduate with practical experience in computer networking,
+            cybersecurity, artificial intelligence, and machine learning. Possesses foundational knowledge
+            of routing and switching, TCP/IP, VLANs, Python, SQL, and web technologies, supported by
+            industry training and certifications from Huawei, IBM, OPSWAT, and other organizations.
+            Experienced in technical leadership, community engagement, and volunteer service through
+            technology-focused organizations. Passionate about designing secure, scalable, and intelligent
+            technology solutions while continuously expanding professional expertise in networking,
+            cybersecurity, and AI.
+          </p>
+        </div>
+
+        <!-- Project -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-folder-open"></i> Featured Project</div>
+          <div class="project-card">
+            <div class="project-top">
+              <div class="project-title">
+                Machine Learning Dietary Recommendation System for Diabetic Patients Using Random Forest
+              </div>
+              <div class="project-status"><span></span> Ongoing</div>
+            </div>
+            <p class="project-desc">
+              Developing an intelligent recommendation system that uses the Random Forest machine learning
+              algorithm to generate personalized dietary recommendations for diabetic patients. The system
+              analyzes patient-related information and recommends suitable meal plans to improve dietary
+              management and health outcomes.
+            </p>
+            <div class="tag-row">
+              <span class="tag"><i class="fab fa-python"></i> Python</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Random Forest</span>
+              <span class="tag">Scikit-learn</span>
+              <span class="tag">Data Analysis</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leadership -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-crown"></i> Leadership Experience</div>
+          <div class="block">
+            <div class="block-header">
+              <div class="block-title">Director, Membership & Welfare</div>
+              <div class="block-date">2025 – Present</div>
+            </div>
+            <div class="block-sub">FutureProof NSUKites AI & Machine Learning Club</div>
+            <ul class="block-bullets">
+              <li>Coordinate membership engagement and welfare initiatives for the club community.</li>
+              <li>Support executive planning and overall community development strategy.</li>
+              <li>Promote participation in AI, cybersecurity, innovation, research, and digital skills programs.</li>
+              <li>Collaborate with executive council members to organize club activities and events.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Volunteer -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-hands-helping"></i> Volunteer Experience</div>
+          <div class="block">
+            <div class="block-header">
+              <div class="block-title">Volunteer</div>
+            </div>
+            <div class="block-sub">American Spaces Nigeria</div>
+            <ul class="block-bullets">
+              <li>Supported community technology and educational initiatives.</li>
+              <li>Participated in programs promoting digital literacy and innovation.</li>
+            </ul>
+          </div>
+          <div class="block">
+            <div class="block-header">
+              <div class="block-title">Volunteer</div>
+            </div>
+            <div class="block-sub">Google Developer Groups (GDG)</div>
+            <ul class="block-bullets">
+              <li>Assisted in organizing technology events and developer community activities.</li>
+              <li>Collaborated with volunteers to promote learning and technical networking.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── SIDEBAR ── -->
+      <div class="cv-side">
+
+        <!-- Education -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-graduation-cap"></i> Education</div>
+          <div class="edu-block">
+            <div class="edu-degree">B.Sc. Computer Science</div>
+            <div class="edu-school">Nasarawa State University, Keffi<br>Faculty of Natural & Applied Sciences</div>
+            <div class="edu-meta">
+              <span class="edu-badge">Expected 2026</span>
+              <span class="edu-badge">400 Level</span>
+              <span class="edu-badge">CGPA 3.14/5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-code"></i> Technical Skills</div>
+
+          <div class="skill-group">
+            <div class="skill-group-title">Networking</div>
+            <div class="skill-item">
+              <div class="skill-label"><span>Routing & Switching</span><span>85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>TCP/IP</span><span>85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>VLAN Configuration</span><span>80%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-title">Programming & AI/ML</div>
+            <div class="skill-item">
+              <div class="skill-label"><span>Python</span><span>75%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>SQL</span><span>70%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label"><span>Machine Learning</span><span>72%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-title">Web & Tools</div>
+            <div class="pill-group">
+              <span class="pill">HTML5</span>
+              <span class="pill">CSS3</span>
+              <span class="pill">Scikit-learn</span>
+              <span class="pill">MS Office</span>
+              <span class="pill">Windows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Career Interests -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-bullseye"></i> Career Interests</div>
+          <div class="pill-group">
+            <span class="pill">🔐 Cybersecurity</span>
+            <span class="pill">📡 Networking</span>
+            <span class="pill">🧠 AI / ML</span>
+            <span class="pill">🖥️ IT Support</span>
+            <span class="pill">📊 Data Analysis</span>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-certificate"></i> Certifications</div>
+          <ul class="cert-list">
+            <li><i class="fas fa-check-circle"></i> Huawei HCIA-Datacom V1.0 Training</li>
+            <li><i class="fas fa-check-circle"></i> Huawei HCIA-DATACOM Course Completion</li>
+            <li><i class="fas fa-check-circle"></i> IBM Digital Skills – Intro to Data Science</li>
+            <li><i class="fas fa-check-circle"></i> IBM Digital Skills Interactive Workshop</li>
+            <li><i class="fas fa-check-circle"></i> OPSWAT Academy – ICIP Certification</li>
+            <li><i class="fas fa-check-circle"></i> Digital Skills – Employability in Africa</li>
+            <li><i class="fas fa-check-circle"></i> WDSF AI – Design & Accountability</li>
+            <li><i class="fas fa-check-circle"></i> DataIntell Summit 2025 – AI Fintech Bias</li>
+          </ul>
+        </div>
+
+        <!-- Strengths -->
+        <div class="section">
+          <div class="sec-title"><i class="fas fa-star"></i> Strengths</div>
+          <div class="strength-wrap">
+            <span class="strength-pill">Problem Solving</span>
+            <span class="strength-pill">Leadership</span>
+            <span class="strength-pill">Teamwork</span>
+            <span class="strength-pill">Adaptability</span>
+            <span class="strength-pill">Communication</span>
+            <span class="strength-pill">Continuous Learning</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
